@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#635bff">
+  <meta name="description" content="EduFlow Ultra X - Student productivity and study planner">
+  <title>EduFlow Ultra X | Student Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">E</div>
+        <div>
+          <h2>EduFlow</h2>
+          <span>ULTRA X</span>
+        </div>
+      </div>
+
+      <nav class="navigation">
+        <p class="nav-heading">WORKSPACE</p>
+
+        <button class="nav-item active" data-page="dashboard">
+          <span>⌂</span> Dashboard
+        </button>
+
+        <button class="nav-item" data-page="tasks">
+          <span>✓</span> My Tasks
+        </button>
+
+        <button class="nav-item" data-page="notes">
+          <span>▤</span> Study Notes
+        </button>
+
+        <button class="nav-item" data-page="focus">
+          <span>◷</span> Focus Timer
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip">
+          <span class="tip-icon">✦</span>
+          <h3>Keep learning!</h3>
+          <p>Small progress every day leads to big results.</p>
+        </div>
+
+        <p class="sidebar-footer">EduFlow Ultra X © 2026</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Toggle menu">
+          ☰
+        </button>
+
+        <div class="breadcrumb">
+          <span>Workspace</span>
+          <span class="breadcrumb-divider">/</span>
+          <strong id="pageTitle">Dashboard</strong>
+        </div>
+
+        <div class="topbar-right">
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            Your study space
+          </div>
+
+          <div class="profile-avatar" title="Student profile">S</div>
+        </div>
+      </header>
+
+      <!-- Dashboard Page -->
+      <section class="page active" id="dashboardPage">
+        <div class="welcome-section">
+          <div>
+            <p class="eyebrow">YOUR PERSONAL STUDY SPACE</p>
+            <h1>Welcome back, Student! 👋</h1>
+            <p class="welcome-description">
+              Stay organized, focus on your goals, and make every study session count.
+            </p>
+          </div>
+
+          <button class="primary-button" id="quickAddTask">
+            <span>＋</span> Add New Task
+          </button>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Total Tasks</span>
+              <span class="stat-icon purple">▤</span>
+            </div>
+            <h2 id="totalTasks">0</h2>
+            <p class="stat-description">All your study tasks</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Completed</span>
+              <span class="stat-icon green">✓</span>
+            </div>
+            <h2 id="completedTasks">0</h2>
+            <p class="stat-description">Tasks completed</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Pending</span>
+              <span class="stat-icon orange">◷</span>
+            </div>
+            <h2 id="pendingTasks">0</h2>
+            <p class="stat-description">Tasks to work on</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Study Notes</span>
+              <span class="stat-icon blue">▧</span>
+            </div>
+            <h2 id="totalNotes">0</h2>
+            <p class="stat-description">Saved notes</p>
+          </article>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-grid">
+
+          <section class="panel task-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Today's Tasks</h2>
+                <p>Keep moving towards your goals.</p>
+              </div>
+
+              <button class="text-button" data-goto="tasks">
+                View all →
+              </button>
+            </div>
+
+            <div id="dashboardTaskList" class="task-list"></div>
+          </section>
+
+          <section class="panel progress-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Your Progress</h2>
+                <p>Your productivity overview.</p>
+              </div>
+            </div>
+
+            <div class="progress-circle" id="progressCircle">
+              <div class="progress-circle-inner">
+                <strong id="progressPercentage">0%</strong>
+                <span>Completed</span>
+              </div>
+            </div>
+
+            <div class="progress-legend">
+              <div>
+                <span class="legend-dot completed-dot"></span>
+                Completed
+                <strong id="progressCompleted">0</strong>
+              </div>
+
+              <div>
+                <span class="legend-dot pending-dot"></span>
+                Pending
+                <strong id="progressPending">0</strong>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Quick Actions -->
+        <section class="panel quick-actions-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Quick Actions</h2>
+              <p>Choose what you want to work on.</p>
+            </div>
+          </div>
+
+          <div class="quick-actions-grid">
+            <button class="quick-action-card" data-goto="tasks">
+              <span class="quick-action-icon purple">✓</span>
+              <strong>Manage Tasks</strong>
+              <span>Organize your workload</span>
+            </button>
+
+            <button class="quick-action-card" data-goto="notes">
+              <span class="quick-action-icon blue">▤</span>
+              <strong>Study Notes</strong>
+              <span>Save important concepts</span>
+            </button>
+
+            <button class="quick-action-card" data-goto="focus">
+              <span class="quick-action-icon green">◷</span>
+              <strong>Start Focusing</strong>
+              <span>Make time for deep work</span>
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- Tasks Page -->
+      <section class="page" id="tasksPage">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">STAY ORGANIZED</p>
+            <h1>My Tasks</h1>
+            <p>Plan your work and track what you accomplish.</p>
+          </div>
+
+          <button class="primary-button" id="showTaskForm">
+            ＋ Add Task
+          </button>
+        </div>
+
+        <!-- Add Task Form -->
+        <section class="panel form-panel hidden" id="taskFormPanel">
+          <div class="panel-header">
+            <h2 id="taskFormHeading">Create a new task</h2>
+            <button class="icon-button" id="closeTaskForm" aria-label="Close form">
+              ✕
+            </button>
+          </div>
+
+          <form id="taskForm">
+            <input type="hidden" id="taskId">
+
+            <div class="form-group">
+              <label for="taskTitle">Task title *</label>
+              <input
+                type="text"
+                id="taskTitle"
+                placeholder="e.g. Complete DBMS Unit 1"
+                maxlength="120"
+                required
+              >
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="taskCategory">Subject / Category</label>
+                <input
+                  type="text"
+                  id="taskCategory"
+                  placeholder="e.g. DBMS"
+                  maxlength="60"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="taskPriority">Priority</label>
+                <select id="taskPriority">
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="taskDueDate">Due date</label>
+              <input type="date" id="taskDueDate">
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="secondary-button" id="cancelTaskForm">
+                Cancel
+              </button>
+
+              <button type="submit" class="primary-button">
+                Save Task
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Task Filters -->
+        <section class="panel">
+          <div class="task-toolbar">
+            <div class="search-box">
+              <span>⌕</span>
+              <input
+                type="search"
+                id="taskSearch"
+                placeholder="Search your tasks..."
+              >
+            </div>
+
+            <select id="taskFilter" aria-label="Filter tasks">
+              <option value="all">All Tasks</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+            </select>
+
+            <select id="taskSort" aria-label="Sort tasks">
+              <option value="newest">Newest First</option>
+              <option value="priority">Priority</option>
+              <option value="dueDate">Due Date</option>
+            </select>
+          </div>
+
+          <div id="taskList" class="task-list full-task-list"></div>
+        </section>
+      </section>
+
+      <!-- Notes Page -->
+      <section class="page" id="notesPage">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">LEARN AND REMEMBER</p>
+            <h1>Study Notes</h1>
+            <p>Keep your important study material in one place.</p>
+          </div>
+
+          <button class="primary-button" id="showNoteForm">
+            ＋ Create Note
+          </button>
+        </div>
+
+        <!-- Add Note Form -->
+        <section class="panel form-panel hidden" id="noteFormPanel">
+          <div class="panel-header">
+            <h2 id="noteFormHeading">Create a study note</h2>
+            <button class="icon-button" id="closeNoteForm" aria-label="Close form">
+              ✕
+            </button>
+          </div>
+
+          <form id="noteForm">
+            <input type="hidden" id="noteId">
+
+            <div class="form-group">
+              <label for="noteTitle">Note title *</label>
+              <input
+                type="text"
+                id="noteTitle"
+                placeholder="e.g. DBMS Important Questions"
+                maxlength="120"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="noteCategory">Subject</label>
+              <input
+                type="text"
+                id="noteCategory"
+                placeholder="e.g. Database Management System"
+                maxlength="60"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="noteContent">Note content *</label>
+              <textarea
+                id="noteContent"
+                rows="7"
+                placeholder="Write your study notes here..."
+                maxlength="20000"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="secondary-button" id="cancelNoteForm">
+                Cancel
+              </button>
+
+              <button type="submit" class="primary-button">
+                Save Note
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Notes Search -->
+        <div class="notes-toolbar">
+          <div class="search-box">
+            <span>⌕</span>
+            <input
+              type="search"
+              id="noteSearch"
+              placeholder="Search notes by title or subject..."
+            >
+          </div>
+        </div>
+
+        <div id="notesGrid" class="notes-grid"></div>
+      </section>
+
+      <!-- Focus Timer Page -->
+      <section class="page" id="focusPage">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">FOCUS ON WHAT MATTERS</p>
+            <h1>Focus Timer</h1>
+            <p>Work in focused sessions and take regular breaks.</p>
+          </div>
+        </div>
+
+        <div class="focus-layout">
+          <section class="panel timer-panel">
+            <div class="timer-mode-buttons">
+              <button class="timer-mode active" data-minutes="25" data-mode="focus">
+                Focus
+              </button>
+
+              <button class="timer-mode" data-minutes="5" data-mode="short">
+                Short Break
+              </button>
+
+              <button class="timer-mode" data-minutes="15" data-mode="long">
+                Long Break
+              </button>
+            </div>
+
+            <div class="timer-circle" id="timerCircle">
+              <div class="timer-circle-inner">
+                <span id="timerModeLabel">FOCUS SESSION</span>
+                <strong id="timerDisplay">25:00</strong>
+                <span id="timerStatus">Ready to focus?</span>
+              </div>
+            </div>
+
+            <div class="timer-controls">
+              <button class="primary-button timer-start-button" id="startTimer">
+                ▶ Start
+              </button>
+
+              <button class="secondary-button" id="resetTimer">
+                ↻ Reset
+              </button>
+            </div>
+
+            <p class="timer-tip">
+              Tip: Put distractions away and focus on one task at a time.
+            </p>
+          </section>
+
+          <section class="panel focus-info-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Focus Statistics</h2>
+                <p>Your progress in this session.</p>
+              </div>
+            </div>
+
+            <div class="focus-stat">
+              <span class="focus-stat-icon purple">◷</span>
+              <div>
+                <span>Completed Focus Sessions</span>
+                <strong id="focusSessions">0</strong>
+              </div>
+            </div>
+
+            <div class="focus-stat">
+              <span class="focus-stat-icon green">✓</span>
+              <div>
+                <span>Total Focus Minutes</span>
+                <strong id="focusMinutes">0</strong>
+              </div>
+            </div>
+
+            <div class="focus-guidelines">
+              <h3>How it works</h3>
+              <ul>
+                <li>Focus for 25 minutes.</li>
+                <li>Take a 5-minute short break.</li>
+                <li>Use a 15-minute break when needed.</li>
+                <li>Repeat at your own pace.</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- Toast Notification -->
+      <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+    </main>
+  </div>
+</body>
+              </html>
